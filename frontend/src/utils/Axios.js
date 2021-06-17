@@ -7,7 +7,7 @@ class Axios {
         console.log(id)
         const data = await axios({
             method: 'get',
-            url: this.baseURL + 'getPeopleById/' + id,
+            url: this.baseURL + 'getPeopleById?id=' + id,
         });
         return data;
     }

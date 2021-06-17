@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 
 function People() {
 
-    const [idPeople, setIdPeople] = useState(1)
+    const [idPeople, setIdPeople] = useState(0)
 
-    const handleOnChange = () => {
-        setIdPeople(idPeople)
+    const handleOnChange = (e) => {
+        setIdPeople(e.target.value)
     }
 
     const getPeopleFromServer = async () => {
@@ -33,7 +33,7 @@ function People() {
     return (
         <div className="People" >
             <h1>JEANVALJEAN</h1>
-                <input type="text" value={idPeople} onChange={handleOnChange} />    
+                <input type="text" onChange={handleOnChange} />    
             <button onClick={getPeopleFromServer}>chercher par id</button>
             <button onClick={getAllPeopleFromServer}>tout chercher</button>
         </div>
