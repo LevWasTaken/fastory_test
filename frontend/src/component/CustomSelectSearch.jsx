@@ -17,13 +17,30 @@ const CustomSelectSearch = ({ options, value, multiple, disabled }) => {
         setId(e.target.value)
     }
 
-    const getPeopleFromServer = async () => {
+    const getDataByIdFromServer = async () => {
+        console.log('snapshot', snapshot, 'valueProps', valueProps, 'optionProps', optionProps)
+        console.log(snapshot.value)
+        switch (snapshot.value) {
+            case 'people':
+                const res = await axios.getPeopleById(id);
+                if (res) {
+                    console.log(res)
+                }
+                else {
+                    console.log("Connexion impossible, veuillez réessayer");
+                }
+                break
+            default:
+        }
+    }
+
+    const getAllDataFromServer = async () => {
         console.log('snapshot', snapshot, 'valueProps', valueProps, 'optionProps', optionProps)
         console.log(id)
         console.log(snapshot.value)
         switch (snapshot.value) {
             case 'people':
-                const res = await axios.getPeopleById(id);
+                const res = await axios.getAllPeople();
                 if (res) {
                     console.log(res)
                 }
@@ -78,7 +95,8 @@ const CustomSelectSearch = ({ options, value, multiple, disabled }) => {
                         </ul>
                     </div>
                 )}
-                <button className="btn btn-light" onClick={getPeopleFromServer}>chercher par id</button>
+                <button className="btn btn-light" onClick={getDataByIdFromServer}>Get {snapshot.displayValue} by id</button>
+                <button className="btn btn-light" onClick={getAllDataFromServer}>Get All {snapshot.displayValue}</button>
             </div>
         </div>
     );

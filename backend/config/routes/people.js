@@ -1,5 +1,18 @@
 const fetch = require("node-fetch");
 
+const cacheTime = 10000;
+const cache = {}
+let cacheTimer = 0
+
+const getCacheTimer = time => {
+    const now = new Date().getTime()
+    if (cacheTimer < now + time) {
+        cacheTimer = now + time
+    }
+    return cacheTimer
+}
+
+
 module.exports = [{
         method: 'GET',
         path: '/getPeopleById',
@@ -17,22 +30,30 @@ module.exports = [{
     {
         method: 'GET',
         path: '/getAllPeople',
-        handler: (request, h) => {
-            return fetch(`https://swapi.dev/api/people/`)
+        handler: (request, h, time = cacheTime) => {
+            const now = new Date().getTime()
+            console.log("ca marche?")
+            if(!cache.allPeople || cache.allPeople.cacheTimer < now) {
+                console.log("non caché")
+                cache.allPeople = fetch(`https://swapi.dev/api/people/`)
                 .then(res => res.json())
                 .then(people => {
-                    // exclude the first request
+
                     const numberOfPagesLeft = Math.ceil((people.count - 1) / 10);
                     const promises = [];
 
-                    // start at 2 as you already queried the first page
-                    for (let i = 2; i <= numberOfPagesLeft; i++) {
+                    for (let i = 1; i <= numberOfPagesLeft; i++) {
+                        console.log("i", i)
                         promises.push(fetch(`https://swapi.dev/api/people?page=${i}`));
                     }
 
                     return Promise.all(promises)
                         .then(res => Promise.all(res.map(res => res.json())))
                 }).catch(error => console.log(error))
+                cache.allPeople.cacheTimer = getCacheTimer(time)
+            }
+            console.log(cache.allPeople)
+            return cache.allPeople
         }
     }
 

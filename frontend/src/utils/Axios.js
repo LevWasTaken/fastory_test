@@ -27,8 +27,7 @@ class Axios {
         }
     }
     getAllBuilder(name) {
-        return async function(id) {
-        console.log(id)
+        return async function() {
         const data = await axios({
             method: 'get',
             url: this.baseURL + 'getAll' + name,
