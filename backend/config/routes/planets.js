@@ -1,5 +1,7 @@
 const fetch = require("node-fetch");
 
+const cache = {}
+
 module.exports = [{
         method: 'GET',
         path: '/getPlanetsById',
@@ -17,21 +19,24 @@ module.exports = [{
         method: 'GET',
         path: '/getAllPlanets',
         handler: (request, h) => {
-            return fetch(`https://swapi.dev/api/planets/`)
-                .then(res => res.json())
-                .then(planets => {
-                    // exclude the first request
-                    const numberOfPagesLeft = Math.ceil((planets.count - 1) / 10);
-                    const promises = [];
-
-                    // start at 2 as you already queried the first page
-                    for (let i = 2; i <= numberOfPagesLeft; i++) {
-                        promises.push(fetch(`https://swapi.dev/api/planets?page=${i}`));
-                    }
-
-                    return Promise.all(promises)
-                        .then(res => Promise.all(res.map(res => res.json())))
-                }).catch(error => console.log(error))
+            if (!cache.allPeople) {
+                cache.allPeople = fetch(`https://swapi.dev/api/planets/`)
+                    .then(res => res.json())
+                    .then(planets => {
+                        const numberOfPagesLeft = Math.ceil((planets.count - 1) / 10);
+                        const promises = [];
+                        for (let i = 2; i <= numberOfPagesLeft; i++) {
+                            promises.push(fetch(`https://swapi.dev/api/planets?page=${i}`));
+                        }
+                        return Promise.all(promises)
+                            .then(res => Promise.all(res.map(res => res.json())))
+                    }).catch(error => console.log(error))
+                return cache.allPeople
+            } else {
+                console.log("caché")
+            }
+            console.log(cache.allPeople)
+            return cache.allPeople
         }
     }
 ];
