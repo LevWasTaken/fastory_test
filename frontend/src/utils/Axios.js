@@ -1,27 +1,42 @@
 import axios from 'axios';
 
 class Axios {
+    constructor() {
+        this.getPeopleById = this.getByIdBuilder("People")
+        this.getPlanetsById = this.getByIdBuilder("Planets")
+        this.getSpeciesById = this.getByIdBuilder("Species")
+        this.getStarshipsById = this.getByIdBuilder("Starships")
+        this.getVehiclesById = this.getByIdBuilder("Vehicles")
+        this.getAllPeople = this.getAllBuilder("People")
+        this.getAllPlanets = this.getAllBuilder("Planets")
+        this.getAllSpecies = this.getAllBuilder("Species")
+        this.getAllStarships = this.getAllBuilder("Starships")
+        this.getAllVehicles = this.getAllBuilder("Vehicles")
+    }
     baseURL = 'http://localhost:8080/';
 
-    async getPeopleById(id) {
+
+    getByIdBuilder(name) {
+        return async function(id) {
+            console.log(id)
+            const data = await axios({
+                method: 'get',
+                url: this.baseURL + 'get' + name + 'ById?id=' + id,
+            });
+            return data;
+        }
+    }
+    getAllBuilder(name) {
+        return async function(id) {
         console.log(id)
         const data = await axios({
             method: 'get',
-            url: this.baseURL + 'getPeopleById?id=' + id,
+            url: this.baseURL + 'getAll' + name,
         });
+
         return data;
     }
-    async getAllPeople() {
-        console.log('yo')
-
-        const data = await axios({
-            method: 'get',
-            url: this.baseURL + 'getAllPeople',
-        });
-        
-        return data;
-    }
-
+}
 }
 
 export default new Axios();

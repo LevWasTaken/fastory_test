@@ -1,0 +1,9 @@
+.truc {
+    height: fit-content;
+    width: fit-content;
+}
+.select-search {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}

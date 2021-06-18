@@ -1,11 +1,12 @@
-import {createStore} from 'react-redux'
-function TodoReducer(state = initialState, action) {
-    switch (action.type) {
-        case ADD_TODO_ACTION:
-            return[...state, {id: id++, completed: false, ...action.payload}] 
-            default: 
-            return state
-    }
-}
+import {combineReducers, createStore} from 'redux'
+import { todosReducer } from './todosReducer'
+ 
 
-
+const store = createStore(
+    combineReducers({
+        todos: todosReducer,
+        filter: (state=0,action) => state
+    }),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+)
+export default store

@@ -3,14 +3,15 @@ import React, { useState } from 'react';
 
 function People() {
 
-    const [idPeople, setIdPeople] = useState(0)
+    const [id, setId] = useState(0)
 
     const handleOnChange = (e) => {
-        setIdPeople(e.target.value)
+        setId(e.target.value)
     }
 
     const getPeopleFromServer = async () => {
-        console.log()
+        console.log(id)
+        console.log(snapshot.value)
         const res = await axios.getPeopleById(idPeople);
         if (res) {
             console.log(res)
