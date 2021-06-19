@@ -1,9 +1,13 @@
 .truc {
-    height: fit-content;
-    width: fit-content;
+
 }
 .select-search {
+    padding-bottom: 20px;
+    background-color: black;
     display: flex;
     flex-direction: row;
     justify-content: center;
+}
+button {
+    margin: 10px;
 }
