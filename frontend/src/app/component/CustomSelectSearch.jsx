@@ -1,11 +1,15 @@
 import axios from '../utils/Axios';
 import React, { useState } from 'react';
 import { useSelect } from 'react-select-search';
+import { useHistory } from "react-router-dom";
 import '../css/CustomSelectSearch.css'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 
 const CustomSelectSearch = ({ options, value, multiple, disabled }) => {
+
+    const history = useHistory();
+
     const [snapshot, valueProps, optionProps] = useSelect({
         options,
         value,
@@ -47,6 +51,10 @@ const CustomSelectSearch = ({ options, value, multiple, disabled }) => {
                 const resVehicles = await axios.getVehiclesById(id);
                 resVehicles ?  console.log(resVehicles) : console.log("Connexion impossible, veuillez réessayer")
                 break
+            case 'films':
+                const resFilms = await axios.getFilmsById(id);
+                resFilms ?  console.log(resFilms) : console.log("Connexion impossible, veuillez réessayer")
+                break
             default:
                 break
         }
@@ -58,7 +66,15 @@ const CustomSelectSearch = ({ options, value, multiple, disabled }) => {
         if(responses.data.length) {
             data = responses.data.map((response) => {return response.results}).flat()
         }
-        console.log(data)
+        return data
+    }
+    const redirectToDisplay = (page, responses) => {
+        console.log("page", page, "réponses", responses)
+        let dataFormatted = treatAllResponse(responses)
+        history.push({
+            pathname: '/' + page,
+            state: dataFormatted
+        });
     }
     const getAllDataFromServer = async () => {
         console.log('snapshot', snapshot, 'valueProps', valueProps, 'optionProps', optionProps)
@@ -67,7 +83,7 @@ const CustomSelectSearch = ({ options, value, multiple, disabled }) => {
         switch (snapshot.value) {
             case 'people':
                 const resPeople = await axios.getAllPeople();
-                resPeople ? treatAllResponse(resPeople) : console.log("Connexion impossible, veuillez réessayer")
+                resPeople ? redirectToDisplay(snapshot.value, resPeople) : console.log("Connexion impossible, veuillez réessayer")
                 break
             case 'planets':
                 const resPlanets = await axios.getAllPlanets();
@@ -83,7 +99,11 @@ const CustomSelectSearch = ({ options, value, multiple, disabled }) => {
                 break
             case 'vehicles':
                 const resVehicles = await axios.getAllVehicles();
-                resVehicles ? treatAllResponse(resVehicles) : console.log("Connexion impossible, veuillez réessayer")
+                resVehicles ? (treatAllResponse(resVehicles)) : console.log("Connexion impossible, veuillez réessayer")
+                break
+            case 'films':
+                const resFilms = await axios.getAllFilms();
+                resFilms ? treatAllResponse(resFilms) : console.log("Connexion impossible, veuillez réessayer")
                 break
             default:
                 break

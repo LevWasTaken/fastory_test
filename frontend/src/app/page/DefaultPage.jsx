@@ -14,6 +14,7 @@ const DefaultPage =
             { name: 'Species', value: 'species' },
             { name: 'Starships', value: 'starships' },
             { name: 'Vehicles', value: 'vehicles' },
+            { name: 'Films', value: 'films' }
         ];
 
         return (

@@ -7,11 +7,13 @@ class Axios {
         this.getSpeciesById = this.getByIdBuilder("Species")
         this.getStarshipsById = this.getByIdBuilder("Starships")
         this.getVehiclesById = this.getByIdBuilder("Vehicles")
+        this.getFilmsById = this.getByIdBuilder("Films")
         this.getAllPeople = this.getAllBuilder("People")
         this.getAllPlanets = this.getAllBuilder("Planets")
         this.getAllSpecies = this.getAllBuilder("Species")
         this.getAllStarships = this.getAllBuilder("Starships")
         this.getAllVehicles = this.getAllBuilder("Vehicles")
+        this.getAllFilms = this.getAllBuilder("Films")
     }
     baseURL = 'http://localhost:8080/';
 

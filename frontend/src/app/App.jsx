@@ -15,7 +15,7 @@ const App = () => {
                         <DefaultPage Page={Home}/>
                     </Route>
 
-                    <Route exact path="/People">
+                    <Route exact path="/people">
                         <DefaultPage Page={People}/>
                     </Route>
 
