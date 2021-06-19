@@ -36,6 +36,7 @@ const People = () => {
     console.log("peopleToDisplay",people)
     return (
         <div className="People">
+            <h1 className="title">People</h1>
             {people ? <Carousel itemsToShow={3}>{people}</Carousel> : <></>}
         </div>
     )

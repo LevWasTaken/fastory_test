@@ -37,6 +37,7 @@ const Films = () => {
     console.log("FilmsToDisplay",films)
     return (
         <div className="Films">
+            <h1 className="title">Films</h1>
             {films ? <Carousel itemsToShow={1}>{films}</Carousel> : <></>}
         </div>
     )

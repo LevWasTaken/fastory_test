@@ -37,6 +37,7 @@ const Starships = () => {
     console.log("StarshipsToDisplay",starships)
     return (
         <div className="Starships">
+            <h1 className="title">Starships</h1>
             {starships ? <Carousel itemsToShow={3}>{starships}</Carousel> : <></>}
         </div>
     )

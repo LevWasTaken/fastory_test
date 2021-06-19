@@ -3,7 +3,7 @@ import './css/App.css';
 // import { Provider } from 'react-redux';
 // import store from './store';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Home, DefaultPage, People, Films, Planets, Species, Starships, Vehicles } from './page/Index'
+import { Home, DefaultPage, People, Films, Planets, Species, Starships, Vehicles, Connexion } from './page/Index'
 const App = () => {
     return (
 
@@ -37,6 +37,10 @@ const App = () => {
 
                     <Route exact path="/vehicles">
                         <DefaultPage Page={Vehicles} />
+                    </Route>
+
+                    <Route exact path="/connexion">
+                        <DefaultPage Page={Connexion} />
                     </Route>
 
 

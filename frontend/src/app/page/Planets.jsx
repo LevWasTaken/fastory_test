@@ -37,6 +37,7 @@ const Planets = () => {
     console.log("PlanetsToDisplay",planets)
     return (
         <div className="Planets">
+            <h1 className="title">Planets</h1>
             {planets ? <Carousel itemsToShow={3}>{planets}</Carousel> : <></>}
         </div>
     )

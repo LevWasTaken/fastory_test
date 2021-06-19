@@ -1,6 +1,5 @@
 import React from 'react';
-import CustomSelectSearch from '../component/CustomSelectSearch';
-
+import NavBar from '../component/NavBar';
 
 const DefaultPage =
     (
@@ -8,18 +7,11 @@ const DefaultPage =
             Page
         }
     ) => {
-        const options = [
-            { name: 'People', value: 'people' },
-            { name: 'Planets', value: 'planets' },
-            { name: 'Species', value: 'species' },
-            { name: 'Starships', value: 'starships' },
-            { name: 'Vehicles', value: 'vehicles' },
-            { name: 'Films', value: 'films' }
-        ];
+        
 
         return (
             <div className="DefaultPage">
-                <CustomSelectSearch options={options}/>
+                <NavBar/>
                 <div className="PageContent">
                     <Page />
                 </div>

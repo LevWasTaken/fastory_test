@@ -6,7 +6,7 @@ import "../css/Vehicles.css"
 
 const Vehicles = () => {
     const [vehicles, setVehicles] = useState([]);
-    
+
     const treatAllResponse = (responses) => {
         let data = []
         if (responses.data.length) {
@@ -23,20 +23,21 @@ const Vehicles = () => {
     const initDisplay = async () => {
         let vehiclesToDisplay;
         let vehicles = await getAllDataFromServer();
-        console.log("vehicles",vehicles)
-        if(vehicles) {
+        console.log("vehicles", vehicles)
+        if (vehicles) {
             vehiclesToDisplay = vehicles.map((vehicle) => { return <VehiclesDisplay data={vehicle}></VehiclesDisplay> })
         }
-        console.log("vehiclesToDisplay",vehiclesToDisplay)
+        console.log("vehiclesToDisplay", vehiclesToDisplay)
         setVehicles(vehiclesToDisplay)
     }
     useEffect(() => {
         initDisplay();
     }, []);
 
-    console.log("vehiclesToDisplay",vehicles)
+    console.log("vehiclesToDisplay", vehicles)
     return (
         <div className="Vehicles">
+            <h1 className="title">Vehicles</h1>
             {vehicles ? <Carousel itemsToShow={3}>{vehicles}</Carousel> : <></>}
         </div>
     )

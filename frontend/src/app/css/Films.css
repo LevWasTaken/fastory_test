@@ -1,4 +1,7 @@
 .Films {
-    margin-top: 100px;
+    color: white;
     height: max-content;
+}
+.title {
+    margin-bottom: 50px;
 }

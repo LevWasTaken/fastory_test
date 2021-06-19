@@ -37,6 +37,7 @@ const Species = () => {
     console.log("SpeciesToDisplay",Species)
     return (
         <div className="Species">
+            <h1 className="title">Species</h1>
             {species ? <Carousel itemsToShow={3}>{species}</Carousel> : <></>}
         </div>
     )
