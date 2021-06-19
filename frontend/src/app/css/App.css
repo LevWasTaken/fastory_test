@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  background-image: url("https://www.desktopbackground.org/p/2011/09/12/264476_pictures-space-repeating-backgrounds-patterns_1024x1024_h.jpg");
+  min-height: 100vh;
 }
 
 .App-logo {

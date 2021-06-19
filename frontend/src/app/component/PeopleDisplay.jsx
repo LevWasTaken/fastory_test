@@ -4,14 +4,18 @@ const PeopleDisplay = (data) => {
     data = data.data
     return (
         <div className="PeopleDisplay">
-            <div className="name">name : {data.name}</div>
-            <div className="height">height : {data.height} </div>
-            <div className="mass">mass : {data.mass} </div>
-            <div className="hair_color">hair color : {data.hair_color}</div>
-            <div className="skin_color">skin color : {data.skin_color}</div>
-            <div className="eye_color">eye color : {data.eye_color}</div>
-            <div className="birth_year">birth year :{data.birth_year} </div>
-            <div className="gender">gender : gender</div>
+           
+            <div className="name">{data.name}</div>
+            <div className="characteristics">
+                <span>Characteristics</span> 
+                <div className="info">Height : {data.height} </div>
+                <div className="info">Mass : {data.mass} </div>
+                <div className="info">Hair color : {data.hair_color}</div>
+                <div className="info">Skin color : {data.skin_color}</div>
+                <div className="info">Eye color : {data.eye_color}</div>
+                <div className="info">Birth year : {data.birth_year} </div>
+                <div className="info">Gender : {data.gender}</div>
+            </div>
         </div>
     )
 }

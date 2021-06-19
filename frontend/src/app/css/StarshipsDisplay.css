@@ -1,32 +1,17 @@
 @import url('https://fonts.googleapis.com/css?family=Krub:400,700');
-.PeopleDisplay {
+.StarshipsDisplay {
     margin: auto;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    width: 250px;
-    height: 360px;
+    width: 380px;
+    height: 500px;
     border-radius: 10px;
     box-shadow: 0 10px 25px 5px rgba(0, 0, 0, 0.2);
     background: #151515;
     overflow: hidden;
     text-align: justify;
-}
-
-.ds-top {
-    
-    width: 300px;
-    height: 40px;
-    background: crimson;
-    animation: dsTop 1.5s;
-}
-
-.ds-bottom {
-    width: 300px;
-    height: 40px;
-    background: crimson;
-    animation: dsTop 1.5s;
 }
 
 .name {
@@ -49,7 +34,7 @@
     margin-top: 10px;
     margin-bottom: 10px;
     width: inherit;
-    height: 20px;
+    height: fit-content;
     color: white;
     text-decoration: none;
     font-weight: 200;
