@@ -35,7 +35,6 @@ module.exports = [{
             } else {
                 console.log("caché")
             }
-            console.log(cache.allPeople)
             return cache.allPeople
         }
     }

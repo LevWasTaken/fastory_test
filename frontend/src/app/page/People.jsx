@@ -7,7 +7,6 @@ const People = () => {
     const [people, setPeople] = useState([]);
     const [response, setResponse] = useState(false)
     const treatAllResponse = (responses) => {
-        console.log('responses',responses)
         if (responses) {
             let data = []
             data = responses.data.map((response) => { return response.results }).flat()
@@ -17,26 +16,39 @@ const People = () => {
     }
     const getAllDataFromServer = async () => {
         let dataFormatted = null;
-        const resPeople = await axios.getAllPeople();
-        resPeople ? dataFormatted = treatAllResponse(resPeople) : dataFormatted = null
+        try {
+            const resPeople = await axios.getAllPeople(localStorage.getItem('userName'), localStorage.getItem('password'));
+            resPeople ? dataFormatted = treatAllResponse(resPeople) : dataFormatted = null
+        } catch (e) {
+            if (e.response) {
+                console.log(e.response);
+                alert("You're not a real jedi");
+            }
+            else if (e.request) {
+                console.log(e.request);
+                alert("No server response, try later");
+            }
+            else {
+                console.log(e);
+                alert("Unknown error");
+            }
+        }
+
         return dataFormatted
     }
     const initDisplay = async () => {
         let dudeToDisplay;
         let people = await getAllDataFromServer();
-        console.log("people", people)
         if (people) {
             dudeToDisplay = people.map((dude) => { return <PeopleDisplay data={dude}></PeopleDisplay> })
             setResponse(true)
         }
-        console.log("dudeToDisplay", dudeToDisplay)
         setPeople(dudeToDisplay)
     }
     useEffect(() => {
         initDisplay();
     }, []);
 
-    console.log("peopleToDisplay", people)
     return (
         <>
             {response

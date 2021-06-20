@@ -16,36 +16,49 @@ const Films = () => {
     }
     const getAllDataFromServer = async () => {
         let dataFormatted;
-        const resFilms = await axios.getAllFilms();
-        resFilms ? dataFormatted = treatAllResponse(resFilms) : dataFormatted = null
+        try {
+            const resFilms = await axios.getAllFilms(localStorage.getItem('userName'), localStorage.getItem('password'));
+            resFilms ? dataFormatted = treatAllResponse(resFilms) : dataFormatted = null
+        } catch (e) {
+            if (e.response) {
+                console.log(e.response);
+                alert("You're not a real jedi");
+            }
+            else if (e.request) {
+                console.log(e.request);
+                alert("No server response, try later");
+            }
+            else {
+                console.log(e);
+                alert("Unknown error");
+            }
+        }
+
         return dataFormatted
     }
     const initDisplay = async () => {
         let filmsToDisplay;
         let films = await getAllDataFromServer();
-        console.log("films",films)
-        if(films) {
+        if (films) {
             filmsToDisplay = films.map((film) => { return <FilmsDisplay data={film}></FilmsDisplay> })
             setResponse(true)
         }
-        console.log("filmsToDisplay",filmsToDisplay)
         setFilms(filmsToDisplay)
     }
     useEffect(() => {
         initDisplay();
     }, []);
 
-    console.log("FilmsToDisplay",films)
     return (
         <>
-        {response
-            ?
-            <div className="Films">
-                <h1 className="title">Films</h1>
-                <Carousel itemsToShow={3}>{films}</Carousel> </div> : <h1>Only true jedi can access knowledge...</h1>
-             
-    }
-    </>
+            {response
+                ?
+                <div className="Films">
+                    <h1 className="title">Films</h1>
+                    <Carousel itemsToShow={1}>{films}</Carousel> </div> : <h1>Only true jedi can access knowledge...</h1>
+
+            }
+        </>
     )
 }
 export default Films;

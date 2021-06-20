@@ -5,7 +5,7 @@ import Image from 'react-bootstrap/Image'
 import { useHistory } from "react-router-dom";
 import '../css/NavBar.css'
 const NavBar = () => {
-    
+
     const history = useHistory();
 
     const options = [
@@ -26,7 +26,7 @@ const NavBar = () => {
             
         <CustomSelectSearch options={options}></CustomSelectSearch>
         <div className="img-container"><a href="/"><img src="./baner.png"/></a></div>
-        <Button onClick={redirect}>Connexion</Button>
+        { localStorage.getItem('userName') === "Luke" ? <h3>Welcome, Master Luke</h3>: <Button onClick={redirect}>Connexion</Button> }
         
         </div>
     )

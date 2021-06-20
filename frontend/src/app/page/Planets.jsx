@@ -16,26 +16,40 @@ const Planets = () => {
     }
     const getAllDataFromServer = async () => {
         let dataFormatted;
-        const resPlanets = await axios.getAllPlanets();
-        resPlanets ? dataFormatted = treatAllResponse(resPlanets) : dataFormatted = null
+        try {
+            const resPlanets = await axios.getAllPlanets(localStorage.getItem('userName'), localStorage.getItem('password'));
+            resPlanets ? dataFormatted = treatAllResponse(resPlanets) : dataFormatted = null
+        } catch (e) {
+            if (e.response) {
+                console.log(e.response);
+                alert("You're not a real jedi");
+            }
+            else if (e.request) {
+                console.log(e.request);
+                alert("No server response, try later");
+            }
+            else {
+                console.log(e);
+                alert("Unknown error");
+            }
+        }
         return dataFormatted
     }
     const initDisplay = async () => {
         let planetsToDisplay;
         let planets = await getAllDataFromServer();
-        console.log("planets",planets)
+        
         if(planets) {
             planetsToDisplay = planets.map((planet) => { return <PlanetsDisplay data={planet}></PlanetsDisplay> })
             setResponse(true)
         }
-        console.log("planetsToDisplay",planetsToDisplay)
+
         setPlanets(planetsToDisplay)
     }
     useEffect(() => {
         initDisplay();
     }, []);
 
-    console.log("PlanetsToDisplay",planets)
     return (
         <>
         {response

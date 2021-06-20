@@ -16,26 +16,38 @@ const Starships = () => {
     }
     const getAllDataFromServer = async () => {
         let dataFormatted;
-        const resStarships = await axios.getAllStarships();
-        resStarships ? dataFormatted = treatAllResponse(resStarships) : dataFormatted = null
+        try {
+            const resStarships = await axios.getAllStarships(localStorage.getItem('userName'), localStorage.getItem('password'));
+            resStarships ? dataFormatted = treatAllResponse(resStarships) : dataFormatted = null
+        } catch (e) {
+            if (e.response) {
+                console.log(e.response);
+                alert("You're not a real jedi");
+            }
+            else if (e.request) {
+                console.log(e.request);
+                alert("No server response, try later");
+            }
+            else {
+                console.log(e);
+                alert("Unknown error");
+            }
+        }
         return dataFormatted
     }
     const initDisplay = async () => {
         let starshipsToDisplay;
         let starships = await getAllDataFromServer();
-        console.log("starships",starships)
         if(starships) {
             starshipsToDisplay = starships.map((starship) => { return <StarshipsDisplay data={starship}></StarshipsDisplay> })
             setResponse(true)
         }
-        console.log("starshipsToDisplay",starshipsToDisplay)
         setStarships(starshipsToDisplay)
     }
     useEffect(() => {
         initDisplay();
     }, []);
 
-    console.log("StarshipsToDisplay",starships)
     return (<>
         {response
             ?

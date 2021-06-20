@@ -17,26 +17,37 @@ const Vehicles = () => {
     }
     const getAllDataFromServer = async () => {
         let dataFormatted;
-        const resVehicles = await axios.getAllVehicles();
-        resVehicles ? dataFormatted = treatAllResponse(resVehicles) : dataFormatted = null
+        try {
+            const resVehicles = await axios.getAllVehicles(localStorage.getItem('userName'), localStorage.getItem('password'));
+            resVehicles ? dataFormatted = treatAllResponse(resVehicles) : dataFormatted = null
+        } catch (e) {
+            if (e.response) {
+                console.log(e.response);
+                alert("You're not a real jedi");
+            }
+            else if (e.request) {
+                console.log(e.request);
+                alert("No server response, try later");
+            }
+            else {
+                console.log(e);
+                alert("Unknown error");
+            }
+        }
         return dataFormatted
     }
     const initDisplay = async () => {
         let vehiclesToDisplay;
         let vehicles = await getAllDataFromServer();
-        console.log("vehicles", vehicles)
         if (vehicles) {
             vehiclesToDisplay = vehicles.map((vehicle) => { return <VehiclesDisplay data={vehicle}></VehiclesDisplay> })
             setResponse(true)
         }
-        console.log("vehiclesToDisplay", vehiclesToDisplay)
         setVehicles(vehiclesToDisplay)
     }
     useEffect(() => {
         initDisplay();
     }, []);
-
-    console.log("vehiclesToDisplay", vehicles)
     return (
         <>
             {response

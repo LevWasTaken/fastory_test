@@ -20,7 +20,7 @@ class Axios {
 
     getByIdBuilder(name) {
         return async function(id) {
-            console.log(id)
+
             const data = await axios({
                 method: 'get',
                 url: this.baseURL + 'get' + name + 'ById?id=' + id,
@@ -29,28 +29,35 @@ class Axios {
         }
     }
     getAllBuilder(name) {
-        return async function() {
+        return async function(username,password) {
             const data = await axios({
                 method: 'get',
                 url: this.baseURL + 'getAll' + name,
-            });
-            console.log(data)
-            return data;
-        }
-    }
-    async login(username, password) {
-            const response = await axios({
-                method: 'post',
-                url: this.baseURL + 'login',
-                data : {
+                auth: {
                     username: username,
                     password: password
                 }
             });
-            console.log(response)
-            return response;
+            return data;
         }
     }
+    async login(username, password) {
+        const response = await axios({
+            method: 'post',
+            url: this.baseURL + 'login',
+            data: {
+                username: username,
+                password: password
+            },
+            auth: {
+                username: username,
+                password: password
+            }
+        });
+
+        return response;
+    }
+}
 
 
 export default new Axios();

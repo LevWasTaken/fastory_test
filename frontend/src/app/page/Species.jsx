@@ -17,26 +17,38 @@ const Species = () => {
     }
     const getAllDataFromServer = async () => {
         let dataFormatted;
-        const resSpecies = await axios.getAllSpecies();
-        resSpecies ? dataFormatted = treatAllResponse(resSpecies) : dataFormatted = null
+        try {
+            const resSpecies = await axios.getAllSpecies(localStorage.getItem('userName'), localStorage.getItem('password'));
+            resSpecies ? dataFormatted = treatAllResponse(resSpecies) : dataFormatted = null
+        } catch (e) {
+            if (e.response) {
+                console.log(e.response);
+                alert("You're not a real jedi");
+            }
+            else if (e.request) {
+                console.log(e.request);
+                alert("No server response, try later");
+            }
+            else {
+                console.log(e);
+                alert("Unknown error");
+            }
+        }
         return dataFormatted
     }
     const initDisplay = async () => {
         let speciesToDisplay;
         let species = await getAllDataFromServer();
-        console.log("species",species)
         if(species) {
             speciesToDisplay = species.map((specie) => { return <SpeciesDisplay data={specie}></SpeciesDisplay> })
             setResponse(true)
         }
-        console.log("SpeciesToDisplay",speciesToDisplay)
         setSpecies(speciesToDisplay)
     }
     useEffect(() => {
         initDisplay();
     }, []);
 
-    console.log("SpeciesToDisplay",Species)
     return (
         <>
         {response
