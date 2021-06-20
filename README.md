@@ -1,16 +1,16 @@
 # fastory_test
 This app allows you to get data from https://swapi.dev/
 
-##Install dependencies :
+## Install dependencies :
 
 Make sure to npm install in both backend and frontend directories.
 
-##Start the application :
+## Start the application :
 
-Frontend : npm start
-Backend : npm start
+- Frontend : npm start
+- Backend : npm start
 
-##Authentication:
+## Authentication:
 
 You need to log in as a true jedi to fully access the features.
 You can acheive this by clicking on the Connexion button.
@@ -18,7 +18,7 @@ You can acheive this by clicking on the Connexion button.
 Username : Luke
 Password : dadSucks
 
-##How it works
+## How it works
 
 You have two buttons on the navbar : 
 - Filter : it allows you to filter the type of data you want to receive;
