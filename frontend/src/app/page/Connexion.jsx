@@ -39,7 +39,6 @@ const Connexion = () => {
         }
 
     }
-    let pw = localStorage.getItem('password')
     const handleUserName = (e) => {
         setUserName(e.currentTarget.value)
     }
@@ -58,7 +57,7 @@ const Connexion = () => {
                     </div>
                     <div className="form-group">
                         <label>Password</label>
-                        <input onChange={handlePassword} type="text" className="form-control" placeholder="Password"></input>
+                        <input onChange={handlePassword} type="password" className="form-control" placeholder="Password"></input>
                     </div>
                     <Button onClick={submit} size="sm" variant="outline-primary">Submit</Button>
                 </form>

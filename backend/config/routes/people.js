@@ -10,7 +10,6 @@ module.exports = [{
             return fetch(`https://swapi.dev/api/people/${params.id}/`)
                 .then(res => res.json())
                 .then(json => {
-                    console.log(json);
                     return json
                 });
         }
@@ -26,7 +25,6 @@ module.exports = [{
                         const numberOfPagesLeft = Math.ceil((people.count - 1) / 10);
                         const promises = [];
                         for (let i = 1; i <= numberOfPagesLeft; i++) {
-                            console.log("i", i)
                             promises.push(fetch(`https://swapi.dev/api/people?page=${i}`));
                         }
                         return Promise.all(promises)
