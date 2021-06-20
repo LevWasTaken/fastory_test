@@ -6,7 +6,8 @@ import "../css/Species.css"
 
 const Species = () => {
     const [species, setSpecies] = useState([]);
-    
+    const [response, setResponse] = useState(false)
+
     const treatAllResponse = (responses) => {
         let data = []
         if (responses.data.length) {
@@ -26,6 +27,7 @@ const Species = () => {
         console.log("species",species)
         if(species) {
             speciesToDisplay = species.map((specie) => { return <SpeciesDisplay data={specie}></SpeciesDisplay> })
+            setResponse(true)
         }
         console.log("SpeciesToDisplay",speciesToDisplay)
         setSpecies(speciesToDisplay)
@@ -36,10 +38,15 @@ const Species = () => {
 
     console.log("SpeciesToDisplay",Species)
     return (
-        <div className="Species">
-            <h1 className="title">Species</h1>
-            {species ? <Carousel itemsToShow={3}>{species}</Carousel> : <></>}
-        </div>
+        <>
+        {response
+            ?
+            <div className="Species">
+                <h1 className="title">Species</h1>
+                <Carousel itemsToShow={3}>{species}</Carousel> </div> : <h1>Only true jedi can access knowledge...</h1>
+             
+    }
+    </>
     )
 }
 export default Species;

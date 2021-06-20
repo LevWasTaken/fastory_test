@@ -6,7 +6,7 @@ import "../css/Films.css"
 
 const Films = () => {
     const [films, setFilms] = useState([]);
-    
+    const [response, setResponse] = useState(false)
     const treatAllResponse = (responses) => {
         let data = []
         if (responses.data.length) {
@@ -26,6 +26,7 @@ const Films = () => {
         console.log("films",films)
         if(films) {
             filmsToDisplay = films.map((film) => { return <FilmsDisplay data={film}></FilmsDisplay> })
+            setResponse(true)
         }
         console.log("filmsToDisplay",filmsToDisplay)
         setFilms(filmsToDisplay)
@@ -36,10 +37,15 @@ const Films = () => {
 
     console.log("FilmsToDisplay",films)
     return (
-        <div className="Films">
-            <h1 className="title">Films</h1>
-            {films ? <Carousel itemsToShow={1}>{films}</Carousel> : <></>}
-        </div>
+        <>
+        {response
+            ?
+            <div className="Films">
+                <h1 className="title">Films</h1>
+                <Carousel itemsToShow={3}>{films}</Carousel> </div> : <h1>Only true jedi can access knowledge...</h1>
+             
+    }
+    </>
     )
 }
 export default Films;

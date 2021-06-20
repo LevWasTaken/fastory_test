@@ -6,7 +6,7 @@ import "../css/Planets.css"
 
 const Planets = () => {
     const [planets, setPlanets] = useState([]);
-    
+    const [response, setResponse] = useState(false)
     const treatAllResponse = (responses) => {
         let data = []
         if (responses.data.length) {
@@ -26,6 +26,7 @@ const Planets = () => {
         console.log("planets",planets)
         if(planets) {
             planetsToDisplay = planets.map((planet) => { return <PlanetsDisplay data={planet}></PlanetsDisplay> })
+            setResponse(true)
         }
         console.log("planetsToDisplay",planetsToDisplay)
         setPlanets(planetsToDisplay)
@@ -36,10 +37,15 @@ const Planets = () => {
 
     console.log("PlanetsToDisplay",planets)
     return (
-        <div className="Planets">
-            <h1 className="title">Planets</h1>
-            {planets ? <Carousel itemsToShow={3}>{planets}</Carousel> : <></>}
-        </div>
+        <>
+        {response
+            ?
+            <div className="Planets">
+                <h1 className="title">Planets</h1>
+                <Carousel itemsToShow={3}>{planets}</Carousel> </div> : <h1>Only true jedi can access knowledge...</h1>
+             
+    }
+    </>
     )
 }
 export default Planets;

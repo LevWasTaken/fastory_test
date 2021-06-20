@@ -30,14 +30,27 @@ class Axios {
     }
     getAllBuilder(name) {
         return async function() {
-        const data = await axios({
-            method: 'get',
-            url: this.baseURL + 'getAll' + name,
-        });
-
-        return data;
+            const data = await axios({
+                method: 'get',
+                url: this.baseURL + 'getAll' + name,
+            });
+            console.log(data)
+            return data;
+        }
     }
-}
-}
+    async login(username, password) {
+            const response = await axios({
+                method: 'post',
+                url: this.baseURL + 'login',
+                data : {
+                    username: username,
+                    password: password
+                }
+            });
+            console.log(response)
+            return response;
+        }
+    }
+
 
 export default new Axios();

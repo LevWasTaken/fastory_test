@@ -5,16 +5,18 @@ import PeopleDisplay from '../component/PeopleDisplay';
 import "../css/People.css"
 const People = () => {
     const [people, setPeople] = useState([]);
-    
+    const [response, setResponse] = useState(false)
     const treatAllResponse = (responses) => {
-        let data = []
-        if (responses.data.length) {
+        console.log('responses',responses)
+        if (responses) {
+            let data = []
             data = responses.data.map((response) => { return response.results }).flat()
+            return data
         }
-        return data
+
     }
     const getAllDataFromServer = async () => {
-        let dataFormatted;
+        let dataFormatted = null;
         const resPeople = await axios.getAllPeople();
         resPeople ? dataFormatted = treatAllResponse(resPeople) : dataFormatted = null
         return dataFormatted
@@ -22,23 +24,29 @@ const People = () => {
     const initDisplay = async () => {
         let dudeToDisplay;
         let people = await getAllDataFromServer();
-        console.log("people",people)
-        if(people) {
+        console.log("people", people)
+        if (people) {
             dudeToDisplay = people.map((dude) => { return <PeopleDisplay data={dude}></PeopleDisplay> })
+            setResponse(true)
         }
-        console.log("dudeToDisplay",dudeToDisplay)
+        console.log("dudeToDisplay", dudeToDisplay)
         setPeople(dudeToDisplay)
     }
     useEffect(() => {
         initDisplay();
-    },[]);
+    }, []);
 
-    console.log("peopleToDisplay",people)
+    console.log("peopleToDisplay", people)
     return (
-        <div className="People">
-            <h1 className="title">People</h1>
-            {people ? <Carousel itemsToShow={3}>{people}</Carousel> : <></>}
-        </div>
+        <>
+            {response
+                ?
+                <div className="People">
+                    <h1 className="title">People</h1>
+                    <Carousel itemsToShow={3}>{people}</Carousel> </div> : <h1>Only true jedi can access knowledge...</h1>
+
+            }
+        </>
     )
 }
 export default People;

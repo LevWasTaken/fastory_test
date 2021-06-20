@@ -6,6 +6,7 @@ import "../css/Vehicles.css"
 
 const Vehicles = () => {
     const [vehicles, setVehicles] = useState([]);
+    const [response, setResponse] = useState(false)
 
     const treatAllResponse = (responses) => {
         let data = []
@@ -26,6 +27,7 @@ const Vehicles = () => {
         console.log("vehicles", vehicles)
         if (vehicles) {
             vehiclesToDisplay = vehicles.map((vehicle) => { return <VehiclesDisplay data={vehicle}></VehiclesDisplay> })
+            setResponse(true)
         }
         console.log("vehiclesToDisplay", vehiclesToDisplay)
         setVehicles(vehiclesToDisplay)
@@ -36,10 +38,15 @@ const Vehicles = () => {
 
     console.log("vehiclesToDisplay", vehicles)
     return (
-        <div className="Vehicles">
-            <h1 className="title">Vehicles</h1>
-            {vehicles ? <Carousel itemsToShow={3}>{vehicles}</Carousel> : <></>}
-        </div>
+        <>
+            {response
+                ?
+                <div className="Vehicles">
+                    <h1 className="title">Vehicles</h1>
+                    <Carousel itemsToShow={3}>{vehicles}</Carousel> </div> : <h1>Only true jedi can access knowledge...</h1>
+
+            }
+        </>
     )
 }
 export default Vehicles;

@@ -6,7 +6,7 @@ import "../css/Starships.css"
 
 const Starships = () => {
     const [starships, setStarships] = useState([]);
-    
+    const [response, setResponse] = useState(false)
     const treatAllResponse = (responses) => {
         let data = []
         if (responses.data.length) {
@@ -26,6 +26,7 @@ const Starships = () => {
         console.log("starships",starships)
         if(starships) {
             starshipsToDisplay = starships.map((starship) => { return <StarshipsDisplay data={starship}></StarshipsDisplay> })
+            setResponse(true)
         }
         console.log("starshipsToDisplay",starshipsToDisplay)
         setStarships(starshipsToDisplay)
@@ -35,11 +36,15 @@ const Starships = () => {
     }, []);
 
     console.log("StarshipsToDisplay",starships)
-    return (
-        <div className="Starships">
-            <h1 className="title">Starships</h1>
-            {starships ? <Carousel itemsToShow={3}>{starships}</Carousel> : <></>}
-        </div>
+    return (<>
+        {response
+            ?
+            <div className="Starships">
+                <h1 className="title">Starships</h1>
+                <Carousel itemsToShow={3}>{starships}</Carousel> </div> : <h1>Only true jedi can access knowledge...</h1>
+             
+    }
+    </>
     )
 }
 export default Starships;

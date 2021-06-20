@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import axios from '../utils/Axios';
+
 import { useHistory } from "react-router-dom";
 import Button from 'react-bootstrap/Button'
 import '../css/Login.css'
@@ -8,8 +10,10 @@ const Connexion = () => {
     const history = useHistory();
     const [userName, setUserName] = useState("")
     const [password, setPassword] = useState("")
-    const redirect = () => {
-        console.log(userName, password)
+
+    const submit = async () => {
+        const res = await axios.login(userName, password);
+        res ? console.log(res) : console.log("pas de réponse")
     }
     const handleUserName = (e) => {
         setUserName(e.currentTarget.value)
@@ -31,7 +35,7 @@ const Connexion = () => {
                         <label>Password</label>
                         <input onChange={handlePassword} type="text" class="form-control" placeholder="Password"></input>
                     </div>
-                    <Button onClick={redirect} size="sm" variant="outline-primary">Submit</Button>
+                    <Button onClick={submit} size="sm" variant="outline-primary">Submit</Button>
                 </form>
             </div>
         </div>

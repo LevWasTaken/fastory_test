@@ -38,5 +38,6 @@ module.exports = [{
             console.log(cache.allPeople)
             return cache.allPeople
         }
+        
     }
 ];

@@ -8,3 +8,10 @@
 button {
     margin: 10px;
 }
+
+img {
+    margin-top: 20px;
+    margin-right: 100px;
+    max-width: 300px;
+    max-height: 300px;
+}
