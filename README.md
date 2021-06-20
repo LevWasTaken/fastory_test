@@ -15,8 +15,8 @@ Make sure to npm install in both backend and frontend directories.
 You need to log in as a true jedi to fully access the features.
 You can acheive this by clicking on the Connexion button.
 
-Username : Luke
-Password : dadSucks
+- Username : Luke
+- Password : dadSucks
 
 ## How it works
 
